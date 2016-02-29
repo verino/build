@@ -1,0 +1,369 @@
+@import "normalize";
+@import "base";
+@import "mixins";
+@import "variables";
+@import "../../bower_components/susy/sass/susy";
+
+// susy
+
+$susy: (
+  columns: 11,
+  column-width: 60px,
+  gutters: 20px/60px,
+  output:float,
+  math: static,
+  container:900px,
+  gutter-position: outside,
+  global-box-sizing: border-box,
+/* debug: (
+	image: show,
+	color: rgba(#66f, .25),
+	output: background,
+	toggle: top right,
+  ),
+  use-custom: (
+	background-image: true,
+	background-options: false,
+	box-sizing: true,
+	clearfix: false,
+	rem: true,
+  ) */
+);
+
+.container{
+  @include container($susy);
+  @include clearfix;
+  padding: 0 10px;
+}
+
+ /* placeholder */
+
+::-webkit-input-placeholder {color:#000;}
+::-moz-placeholder          {color:#000;}/* Firefox 19+ */
+:-moz-placeholder           {color:#000;}/* Firefox 18- */
+:-ms-input-placeholder      {color:#000;}
+
+/*icons*/
+
+
+// @font-face {
+//   font-family: 'symbols-nerds';
+//   src: url('../font/symbols-nerds.eot?94604853');
+//   src: url('../font/symbols-nerds.eot?94604853#iefix') format('embedded-opentype'),
+//      url('../font/symbols-nerds.woff?94604853') format('woff'),
+//      url('../font/symbols-nerds.ttf?94604853') format('truetype'),
+//      url('../font/symbols-nerds.svg?94604853#symbols-nerds') format('svg');
+//   font-weight: normal;
+//   font-style: normal;
+// }
+
+// @media screen and (-webkit-min-device-pixel-ratio:0) {
+// @font-face {
+//   font-family: 'symbols-nerds';
+//   src: url('../font/symbols-nerds.svg?94604853#symbols-nerds') format('svg');
+//   }
+// }
+ 
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  // font-family: "symbols-nerds";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1em;
+  margin-left: .2em;
+}
+
+/* btn */
+
+.btn{
+  height:$btn-height;
+  display:inline-block;
+  background-color: $btn-red;
+  line-height: 40px;
+  padding: 0 60px;
+  color: #fff;
+  font-size: 13px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 500;
+  @include border-radius(3px);
+  &:hover{
+    background-color: $btn-red-hover;
+  }
+  &:active{
+    @include btn-active-shadow;
+    background-color: $btn-red-active;
+  }
+}
+
+// nav
+
+@mixin nav{
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 0;
+    padding-bottom: 5px;
+    @include transition;
+    &:hover{
+      color: $nav-hover;
+      text-decoration: none;
+    }
+    &:active{
+      color: $nav-active;
+    }
+    &.active{
+      border-bottom: 2px solid #EB565C;
+    }
+}
+
+.top-header{
+  padding-top: 25px;
+  @include clearfix;
+
+}
+
+
+.logo{
+  @include span(2 of 11);
+}
+
+a.logo{
+  width: 140px;
+  height: 57px;
+  display: block;
+}
+
+nav{
+  @include push(2.25 of 11);
+  @include span(5.2 of 11 );
+}
+nav, a.basket{
+  padding-top: 35px;
+}
+
+nav ul{
+  margin: 0;
+  padding: 0;
+  li{
+    padding: 0 20px;
+    margin-bottom: 15px;
+  }
+  li:first-child{
+    padding-left: 0;
+  }
+  li:last-child{
+    padding-right: 0;
+  }
+  a{
+    @include nav
+  }
+
+}
+
+.basket{
+  @include nav;
+  @include span(1.5 of 11 last);
+  text-decoration: none;
+  display: block;
+
+  i{
+  padding-right: 10px;
+  }
+}
+
+.basket:hover i{
+  color: #fa5559;
+  text-decoration: none;
+  @include transition;
+}
+
+
+h3{
+  text-transform: uppercase;
+  margin-top: 30px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+
+/* item */
+
+.items{
+  @include clearfix;
+  padding-bottom: 70px;
+  border-bottom: 2px solid #eee;
+  .item{
+    @include span(3.3 of 11);
+    @include push(0.925 of 11);
+  }
+  .item:first-child{
+    margin-left: 0;
+  }
+  p{
+    color: #273135;
+    font-family: "Roboto";
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+
+  }
+  .btn{
+    padding: 0 40px;
+    margin: 10px 0;
+
+  }
+  .btn.green{
+    background-color:$btn-green;
+    &:active{
+      background-color: $btn-green-active;
+    }
+    &:hover{
+      background-color: $btn-green-hover;
+    }
+  }
+  .btn.yellow{
+    background-color:$btn-yellow;
+    &:active{
+      background-color: $btn-yellow-active;
+    }
+    &:hover{
+      background-color: $btn-yellow-hover;
+    }
+  }
+}
+
+/* maps */
+.maps{
+  margin: 0 auto;
+  width: 100%;
+  height: 415px;
+  background-color: #eee;
+}
+
+.container-adress{
+  position: relative;
+  .adress{
+    font-family: $font-family;
+    position: absolute;
+    padding: 30px 25px;
+    width: 240px;
+    background-color: #fff;
+    top: -325px;
+    left: 10px;
+    h3{
+      font-size: 16px;
+      font-weight: 300;
+      text-transform: uppercase;
+      margin-top: 0;
+      b{
+        font-weight: 400;
+      }
+    }
+    address,a.tel{
+      font-size: 17px;
+      color:#656565;
+      font-style: normal;
+      display: block;
+      text-decoration: none;
+    }
+    address{
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    a.tel{
+      margin-bottom: 30px;
+    }
+    a.btn{
+      padding: 0 45px;
+      font-size: 12px;
+    }
+  }
+}
+
+/* popup */
+
+.popup{
+  @include box-shadow( 0, 20px, 40px, rgba(0,1,1,.75) );
+  width: 630px;
+  height: 415px;
+  padding: 55px 80px;
+  background-color: #fff;
+  margin: 0 auto;
+  position: relative;
+  .user-data{
+    @include clearfix;
+    input[type="text"]{
+    border: 2px solid #d7dbdd;
+    background-color: #fff;
+    width: 220px;
+    height: 35px;
+    color: #000;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 0 17px;
+    line-height: 34px;
+    margin-bottom: 20px;
+    &:hover{
+      border-color:#a1a9ac;
+    }
+    &:active{
+      border-color: #56befb;
+    }
+  }
+    }
+  .user-name{
+    margin-right: 20px;
+    float: left;
+  }
+  .user-email{
+    float: left;
+  }
+  label{
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+    padding-bottom: 15px;
+  }
+  textarea{
+    width: 460px;
+    height: 110px;
+    padding: 10px;
+    border: 2px solid #d7dbdd;
+    background-color: #fff;
+    color: #000;
+    font-family: "Roboto";
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+  }
+  input[type="submit"],
+  input[type="reset"]{
+    border:none;
+    padding: 0 75px;
+  }
+  input[type="reset"]{
+    margin-left: 15px;
+    background-color: $btn-grey;
+    color:#000;
+    &:active{
+      background-color: $btn-grey-active;
+    }
+    &:hover{
+      background-color: $btn-grey-hover;
+    }
+  }
+}
+
+/* author css*/

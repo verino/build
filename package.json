@@ -1,0 +1,20 @@
+{
+  "name": "",
+  "version": "0.0.1",
+  "description": "",
+  "main": "gulpfile.js",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-csscomb": "^3.0.6",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-rigger": "^0.5.8",
+    "gulp-ruby-sass": "^2.0.6",
+    "gulp-uncss": "^1.0.4",
+    "gulp.spritesmith": "^6.0.0",
+    "imagemin-pngquant": "^4.2.0"
+  }
+}
