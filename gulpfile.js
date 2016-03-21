@@ -7,14 +7,20 @@ var gulp = require('gulp'),
 	spritesmith = require('gulp.spritesmith'),
 	uncss = require('gulp-uncss'),
 	csscomb = require('gulp-csscomb'),
+	rename      = require('gulp-rename'),
+	cssnano     = require('gulp-cssnano'),
 	connect = require('gulp-connect'),
 	rigger = require('gulp-rigger'),
+	concat = require('gulp-concat'),
+	uglify = require('gulp-uglifyjs'),
+	del = require('del'),
+	cache= require('gulp-cache'),
 	livereload = require('gulp-livereload');
 
 gulp.task('connect', function() {
   connect.server({
-    root: 'dist/',
-    livereload: true
+	root: 'dist/',
+	livereload: true
   });
 });
 
@@ -31,8 +37,20 @@ gulp.task('font', function(){
 	.pipe(connect.reload());
 });
 
+
+gulp.task('js-libs', function() {
+    return gulp.src([
+        'src/libs/jquery/dist/jquery.min.js',
+        'src/libs/magnific-popup/dist/jquery.magnific-popup.min.js'
+        ])
+        .pipe(concat('libs.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('src/js'))
+        .pipe(connect.reload());
+});
+
 gulp.task('js', function(){
-	return gulp.src('src/js/**/*')
+	return gulp.src('src/js/*')
 	.pipe(gulp.dest('dist/js/'))
 	.pipe(connect.reload());
 });
@@ -44,6 +62,15 @@ gulp.task('css', function(){
 		.pipe(gulp.dest('dist/css'))
 		// .pipe(uncss({html: ['dist/index.html']}))
 		.pipe(csscomb())
+		.pipe(gulp.dest('dist/css'))
+		.pipe(connect.reload());
+});
+
+gulp.task('css-libs', function() {
+	return sass('src/css/libs.scss')
+		.on('error', sass.logError)
+		.pipe(cssnano())
+		.pipe(rename({suffix: '.min'}))
 		.pipe(gulp.dest('dist/css'))
 		.pipe(connect.reload());
 });
@@ -61,26 +88,36 @@ gulp.task('images', function() {
 
 gulp.task('sprite', function() {
   var spriteData = gulp.src('src/img/icons/*.png').pipe(spritesmith({
-    imgName: 'sprite.png',
-    imgPath: 'dist/img/sprite.png',
-    padding:10,
-    cssName: 'sprite.scss'
+	imgName: 'sprite.png',
+	imgPath: 'dist/img/sprite.png',
+	padding:10,
+	cssName: 'sprite.scss'
   }));
   spriteData.img.pipe(gulp.dest('dist/img/')); // путь, куда сохраняем картинку
   spriteData.css.pipe(gulp.dest('src/css/')); // путь, куда сохраняем стили
 });
 
 
-gulp.task('watch', function() {
+gulp.task('watch',['js-libs'], function() {
 
 // Watch any files in dist/, reload on change
 gulp.watch('src/css/*.scss', ['css'])
+gulp.watch('src/css/*.css', ['css-libs'])
 gulp.watch('src/font/*', ['font'])
 gulp.watch('src/js/*', ['js'])
+gulp.watch('src/js/*', ['js-libs'])
 gulp.watch('src/*.html', ['html'])
 gulp.watch('src/template/*.html', ['html'])
 });
 
-gulp.task( 'build', ['html', 'font','css','js', 'connect', 'watch', 'sprite', 'images'])
+gulp.task('clean', function() {
+    return del.sync('dist');
+});
 
-gulp.task('default', ['html', 'css', 'js', 'connect','font', 'watch']);
+gulp.task('clear', function (callback) {
+    return cache.clearAll();
+});
+
+gulp.task( 'build', ['html', 'font','css','css-libs','js','js-libs', 'sprite', 'images']);
+
+gulp.task('default', ['connect', 'watch']);
