@@ -39,10 +39,7 @@ $susy: (
 
  /* placeholder */
 
-::-webkit-input-placeholder {color:#000;}
-::-moz-placeholder          {color:#000;}/* Firefox 19+ */
-:-moz-placeholder           {color:#000;}/* Firefox 18- */
-:-ms-input-placeholder      {color:#000;}
+ @include placeholder(#000 ,bold ,uppercase);
 
 /*icons*/
 
@@ -83,30 +80,63 @@ $susy: (
 
 /* btn */
 
-@mixin btn-active-shadow{
-  box-shadow:(inset 0 3px 0 rgba(0,0,0,.15));
-}
-
-.btn{
-  height:$btn-height;
+%btn{
   display:inline-block;
-  background-color: $btn-red;
-  line-height: 40px;
-  padding: 0 60px;
+  font-family: $font-family;
+  text-align: center;
+  padding: 0 20px;
   color: #fff;
-  font-size: 13px;
   text-transform: uppercase;
   text-decoration: none;
-  font-weight: 500;
-  @include border-radius(3px);
+  font-weight: bold;
+}
+
+%btn-normal {
+  font-size: 14px;
+  line-height: 40px;
+  height:40px;
+}
+
+%btn-medium{
+  height:58px;
+  line-height: 58px;
+  font-size: 21px;
+}
+
+%btn-big{
+  font-size: 21px;
+  line-height: 86px;
+  height: 86px;
+  padding: 0 136px;
+}
+%btn-small{
+  height: 30px;
+  font-size: 14px;
+  line-height: 30px;
+
+
+}
+%btn-red{
+  background-color: $btn-red;
   &:hover{
     background-color: $btn-red-hover;
   }
   &:active{
-    @include btn-active-shadow;
+    color:#94b9d2;
     background-color: $btn-red-active;
   }
 }
+
+%btn-green{
+  background-color:$btn-green;
+  &:active{
+    background-color: $btn-green-active;
+  }
+  &:hover{
+    background-color: $btn-green-hover;
+  }
+}
+
 
 // nav
 
@@ -173,16 +203,7 @@ nav ul{
 
 }
 
-.basket{
-  @include nav;
-  @include span(1.5 of 11 last);
-  text-decoration: none;
-  display: block;
 
-  i{
-  padding-right: 10px;
-  }
-}
 
 .basket:hover i{
   color: #fa5559;
@@ -220,29 +241,6 @@ h3{
     line-height: 1.4;
     letter-spacing: -0.2px;
 
-  }
-  .btn{
-    padding: 0 40px;
-    margin: 10px 0;
-
-  }
-  .btn.green{
-    background-color:$btn-green;
-    &:active{
-      background-color: $btn-green-active;
-    }
-    &:hover{
-      background-color: $btn-green-hover;
-    }
-  }
-  .btn.yellow{
-    background-color:$btn-yellow;
-    &:active{
-      background-color: $btn-yellow-active;
-    }
-    &:hover{
-      background-color: $btn-yellow-hover;
-    }
   }
 }
 

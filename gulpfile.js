@@ -76,7 +76,7 @@ gulp.task('css-libs', function() {
 });
 
 gulp.task('images', function() {
-	return gulp.src('src/img/*', '!src/img/icons')
+	return gulp.src(['src/img/*', '!src/img/icons'])
 		.pipe(imagemin({ optimizationLevel: 3,
 			svgoPlugins: [{removeViewBox: false}],
 			use: [pngquant()],
@@ -102,10 +102,9 @@ gulp.task('watch',['js-libs'], function() {
 
 // Watch any files in dist/, reload on change
 gulp.watch('src/css/*.scss', ['css'])
-gulp.watch('src/css/*.css', ['css-libs'])
+gulp.watch('src/css/libs.scss', ['css-libs'])
 gulp.watch('src/font/*', ['font'])
 gulp.watch('src/js/*', ['js'])
-gulp.watch('src/js/*', ['js-libs'])
 gulp.watch('src/*.html', ['html'])
 gulp.watch('src/template/*.html', ['html'])
 });
