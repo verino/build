@@ -76,7 +76,7 @@ gulp.task('css-libs', function() {
 });
 
 gulp.task('images', function() {
-	return gulp.src('src/img/**/*')
+	return gulp.src('src/img/*', '!src/img/icons')
 		.pipe(imagemin({ optimizationLevel: 3,
 			svgoPlugins: [{removeViewBox: false}],
 			use: [pngquant()],
@@ -114,10 +114,10 @@ gulp.task('clean', function() {
     return del.sync('dist');
 });
 
-gulp.task('clear', function (callback) {
-    return cache.clearAll();
+gulp.task('clear', function (done) {
+  return cache.clearAll(done);
 });
 
 gulp.task( 'build', ['html', 'font','css','css-libs','js','js-libs', 'sprite', 'images']);
 
-gulp.task('default', ['connect', 'watch']);
+gulp.task('default', ['html','connect', 'watch']);
